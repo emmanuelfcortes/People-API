@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.diobootcamp.people.dto.MessageResponseDto;
+import br.com.diobootcamp.people.dto.request.PersonDto;
 import br.com.diobootcamp.people.entities.Person;
+import br.com.diobootcamp.people.mapper.PersonMapper;
 import br.com.diobootcamp.people.repository.PersonRepository;
 import lombok.Builder;
 
@@ -14,6 +16,7 @@ import lombok.Builder;
 @Builder
 public class PersonService {
     private PersonRepository personRepository;
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     @Autowired
     public PersonService(
@@ -21,17 +24,42 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public MessageResponseDto createPerson(Person newPerson) {
+    public MessageResponseDto createPerson(PersonDto personDto) {
+
+        /* Transforming PersonDto in a Person object, to save it in database. */
+        /*
+         * If we do that manually, the code would be constructed like below:
+         * Person newPerson = Person
+         * .builder()
+         * .firstName(personDto.getFirstName())
+         * .lastName(personDto.getLastName())
+         * .cpf(personDto.getCpf())
+         * .birthday(personDto.getBirthday().toLocalDate())
+         * .build();
+         */
+
+        /*
+         * But we gonna use a Map struct lib to do the conversion automatically.
+         * 
+         * To use Map Struct, we need:
+         * 
+         * 1- Add the dependency in pom.xml, in <dependency> and in <build>;
+         * 2- Create an interface (PersonMapper) to configurate the Mapper structure.
+         * 3- Indicate if has type convertion (in our case, the birthday field has
+         * differents
+         * types in Person and PersonDTO).
+         */
+        Person newPerson = personMapper.toModel(personDto);
 
         Person savedPerson = personRepository.save(newPerson);
-        // msgResponseDto.setMessage("Created person with id = "+ savedPerson.getId());
         return MessageResponseDto.builder()
                 .message("Created person with id = " + savedPerson.getId())
                 .build();
 
         /*
          * try {
-         * savedPerson = personRepository.save(newPerson);
+         * savedPerson = personRepository.save(personDto
+         * );
          * msgResponseDto.setMessage("Created person with id = "+ savedPerson.getId());
          * return msgResponseDto;
          * } catch (Exception e) {

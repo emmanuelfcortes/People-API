@@ -2,6 +2,8 @@ package br.com.diobootcamp.people.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.diobootcamp.people.dto.MessageResponseDto;
+import br.com.diobootcamp.people.dto.request.PersonDto;
 import br.com.diobootcamp.people.entities.Person;
 import br.com.diobootcamp.people.services.PersonService;
 
@@ -27,9 +30,10 @@ public class PeopleController {
 
     @PostMapping("/api/v1/person")
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDto createPerson(@RequestBody Person person) {
-        if (!person.equals(null)) {
-            MessageResponseDto msgResponseDto = personService.createPerson(person);
+
+    public MessageResponseDto createPerson(@RequestBody @Valid PersonDto personDto) {
+        if (!personDto.equals(null)) {
+            MessageResponseDto msgResponseDto = personService.createPerson(personDto);
             return msgResponseDto;
         } else
             return MessageResponseDto.builder().message("Empty person.").build();

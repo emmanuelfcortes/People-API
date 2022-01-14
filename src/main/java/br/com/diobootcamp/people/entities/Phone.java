@@ -1,7 +1,5 @@
 package br.com.diobootcamp.people.entities;
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,21 +14,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 
-@Entity
+@Entity // anottation to indicate that is a database entity, to be manipulated by the
+        // JPA.
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Phone {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PhoneTypes type;
-    
+
     @Column(nullable = false)
-    private BigInteger number;
+    private String number;
 }
