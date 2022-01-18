@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.diobootcamp.people.dto.MessageResponseDto;
 import br.com.diobootcamp.people.dto.request.PersonDto;
-import br.com.diobootcamp.people.entities.Person;
 import br.com.diobootcamp.people.services.PersonService;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1/person")
 public class PeopleController {
     private PersonService personService;
 
@@ -28,7 +26,7 @@ public class PeopleController {
         this.personService = personService;
     }
 
-    @PostMapping("/api/v1/person")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 
     public MessageResponseDto createPerson(@RequestBody @Valid PersonDto personDto) {
@@ -39,8 +37,8 @@ public class PeopleController {
             return MessageResponseDto.builder().message("Empty person.").build();
     }
 
-    @GetMapping("/")
-    public List<Person> readAll() {
+    @GetMapping
+    public List<PersonDto> readAll() {
         return personService.readAll();
     }
 
