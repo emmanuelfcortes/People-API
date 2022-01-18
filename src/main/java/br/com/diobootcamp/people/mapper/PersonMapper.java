@@ -10,9 +10,8 @@ import br.com.diobootcamp.people.entities.Person;
 public interface PersonMapper {
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
-    @Mapping(target = "birthday", source = "birthday", dateFormat = "dd-MM-yyyy")
+    @Mapping(source = "birth", target = "birthday", dateFormat = "dd-MM-yyyy")
     Person toModel(PersonDto personDto);
 
-    @Mapping(target = "birthday", source = "birthday", dateFormat = "dd-MM-yyyy")
     PersonDto toDTO(Person person);
 }
