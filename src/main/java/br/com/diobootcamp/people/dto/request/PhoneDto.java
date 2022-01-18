@@ -5,7 +5,6 @@ import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import javax.validation.executable.ValidateOnExecution;
 
 import br.com.diobootcamp.people.enums.PhoneTypes;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ValidateOnExecution
+
 public class PhoneDto {
 
     private Long id;
