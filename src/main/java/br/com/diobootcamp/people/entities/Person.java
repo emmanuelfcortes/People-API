@@ -32,7 +32,7 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
 
-    private String birthday;
+    private LocalDate birthday;
 
     @Column(nullable = false, unique = true)
     private String cpf;

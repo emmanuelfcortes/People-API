@@ -1,6 +1,7 @@
 package br.com.diobootcamp.people.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,11 @@ public class PersonService {
         List<Person> allPeople = personRepository.findAll();
         List<PersonDto> allPeopleDto = allPeople.stream().map(personMapper::toDTO).collect(Collectors.toList());
         return allPeopleDto;
+    }
+
+    public PersonDto findById(Long id) {
+        Optional<Person> personOptional = personRepository.findById(id);
+        return personMapper.toDTO(personOptional.get());
+
     }
 }
