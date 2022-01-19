@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder // Lombok annotation that enable the use of builder to class instantiation
 @AllArgsConstructor // Lombok annotation to create constructor with all class attributes like
                     // arguments
-@NoArgsConstructor // Lombok annotation to create empty class constructor
+//@NoArgsConstructor // Lombok annotation to create empty class constructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
