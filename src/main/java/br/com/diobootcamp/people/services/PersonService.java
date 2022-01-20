@@ -1,7 +1,7 @@
 package br.com.diobootcamp.people.services;
 
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.diobootcamp.people.dto.MessageResponseDto;
 import br.com.diobootcamp.people.dto.request.PersonDto;
 import br.com.diobootcamp.people.entities.Person;
+import br.com.diobootcamp.people.exceptions.PersonNotFoundException;
 import br.com.diobootcamp.people.mapper.PersonMapper;
 import br.com.diobootcamp.people.repository.PersonRepository;
 import lombok.Builder;
@@ -77,9 +78,21 @@ public class PersonService {
         return allPeopleDto;
     }
 
-    public PersonDto findById(Long id) {
+    public PersonDto findById(Long id) throws PersonNotFoundException {
+        /*First Implementation: with Optional*/
+        /*
         Optional<Person> personOptional = personRepository.findById(id);
+        if(personOptional.isEmpty()){
+            throw new  PersonNotFoundException(id);
+        }
         return personMapper.toDTO(personOptional.get());
+        */
+        /*****************/
+        /*Second Implementation: More condensed */
+        Person person = personRepository.findById(id)
+            .orElseThrow(() -> new PersonNotFoundException(id));
+
+        return personMapper.toDTO(person);
 
     }
 }

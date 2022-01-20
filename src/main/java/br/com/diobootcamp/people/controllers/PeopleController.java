@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.diobootcamp.people.dto.MessageResponseDto;
 import br.com.diobootcamp.people.dto.request.PersonDto;
+import br.com.diobootcamp.people.exceptions.PersonNotFoundException;
 import br.com.diobootcamp.people.services.PersonService;
 
 @RestController
@@ -44,7 +45,7 @@ public class PeopleController {
     }
 
     @GetMapping("{id}")
-    public PersonDto findPerson(@PathVariable Long id) {
+    public PersonDto findPerson(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
     }
 }
