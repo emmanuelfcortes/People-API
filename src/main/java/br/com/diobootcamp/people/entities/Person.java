@@ -32,7 +32,8 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
 
-    private Date birthday;
+    private String birthday;
+    //private Date birthday;
 
     @Column(nullable = false, unique = true)
     private String cpf;
