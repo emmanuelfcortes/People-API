@@ -13,19 +13,25 @@ import br.com.diobootcamp.people.entities.Person;
 import br.com.diobootcamp.people.exceptions.PersonNotFoundException;
 import br.com.diobootcamp.people.mapper.PersonMapper;
 import br.com.diobootcamp.people.repository.PersonRepository;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 @Service
 @Builder
+@AllArgsConstructor(onConstructor= @__(@Autowired))
 public class PersonService {
     private PersonRepository personRepository;
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
+    /*
+    This code was substitued by lombok annotation above:
+    @AllArgsConstructor(onConstructor= @__(@Autowired))
     @Autowired
     public PersonService(
             PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
+    */
 
     public MessageResponseDto createPerson(PersonDto personDto) {
 

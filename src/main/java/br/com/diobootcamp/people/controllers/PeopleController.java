@@ -19,16 +19,22 @@ import br.com.diobootcamp.people.dto.MessageResponseDto;
 import br.com.diobootcamp.people.dto.request.PersonDto;
 import br.com.diobootcamp.people.exceptions.PersonNotFoundException;
 import br.com.diobootcamp.people.services.PersonService;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/person")
+@AllArgsConstructor(onConstructor= @__(@Autowired))
 public class PeopleController {
     private PersonService personService;
 
+    /* This part of code was substitued by lombok anottation above:
+    @AllArgsConstructor(onConstructor= @__(@Autowired)) 
+    
     @Autowired
     public PeopleController(PersonService personService) {
         this.personService = personService;
     }
+    */
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
