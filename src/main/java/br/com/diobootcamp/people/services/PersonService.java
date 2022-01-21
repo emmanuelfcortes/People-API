@@ -53,11 +53,8 @@ public class PersonService {
          * types in Person and PersonDTO).
          */
         Person newPerson = personMapper.toModel(personDto);
-
-        Person savedPerson = personRepository.save(newPerson);
-        return MessageResponseDto.builder()
-                .message("Created person with id = " + savedPerson.getId())
-                .build();
+        Person savedPerson = personRepository.save(newPerson);       
+        return _createMessageResponse(savedPerson.getId(), "Created person with id = ");
 
         /*
          * try {
@@ -96,8 +93,30 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
+    
+    public MessageResponseDto updateById(Long id, PersonDto personDto) throws PersonNotFoundException {
+        /**The updateById() method is very similar to save() method. The only diferrence is that
+         * we have to verify if "id" of person exists.
+         * The Spring verify if already exists a person with the id of Person Request Body. If 
+         * yes, you update. If not, will create a new.
+         */
+        _existsById(id);
+        
+        
+        Person editPerson = personMapper.toModel(personDto);
+        personRepository.save(editPerson);
+        return _createMessageResponse(id, "Updated person with id: ");
+        
+    }
+    
     private Person _existsById(Long id) throws PersonNotFoundException{
         return personRepository.findById(id)
             .orElseThrow(() -> new PersonNotFoundException(id));
+    }
+
+    private MessageResponseDto _createMessageResponse(Long id, String message){
+        return MessageResponseDto.builder()
+        .message(message + id)
+        .build();
     }
 }
