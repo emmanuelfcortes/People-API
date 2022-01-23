@@ -59,7 +59,7 @@ public class PersonService {
          * types in Person and PersonDTO).
          */
         Person newPerson = personMapper.toModel(personDto);
-        Person savedPerson = personRepository.save(newPerson);       
+        Person savedPerson = personRepository.save(newPerson);
         return _createMessageResponse(savedPerson.getId(), "Created person with id = ");
 
         /*

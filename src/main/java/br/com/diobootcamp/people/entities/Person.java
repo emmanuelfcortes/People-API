@@ -1,6 +1,6 @@
 package br.com.diobootcamp.people.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,7 +32,7 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(nullable = false, unique = true)
     private String cpf;
