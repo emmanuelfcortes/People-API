@@ -4,6 +4,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import br.com.diobootcamp.people.enums.PhoneTypes;
@@ -27,6 +28,7 @@ public class PhoneDto {
 
     @Valid
     @NotEmpty
-    @Size(min = 13, max = 14)
+    @Size(min = 10, max = 19)
+    @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{2,3}\\))|\\d{2,3})[- .]?\\d{4,5}[- .]?\\d{4}$")
     private String number;
 }
